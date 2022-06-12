@@ -187,7 +187,7 @@ export default function Home(): JSX.Element {
       <TypeWord>
         {gameStart && (
           <audio
-            src={`${process.env.NEXT_PUBLIC_DOMAIN}/audio/brigada-soundtrack.mp3`}
+            src={`${process.env.NEXT_PUBLIC_DOMAIN}/audio/brigada.mp3`}
             autoPlay
             loop
             style={{ height: 0 }}
