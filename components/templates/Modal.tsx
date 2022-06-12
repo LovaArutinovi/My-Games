@@ -94,5 +94,8 @@ const ModalBody = styled(motion.div)`
   background: #ffffff;
   border-radius: 30px;
   z-index: 2;
+  @media ${theme.breakpoints.xs} {
+    padding: 25px;
+  }
   /* transform: scale(0.5); */
 `;

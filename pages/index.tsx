@@ -164,6 +164,7 @@ export default function Home(): JSX.Element {
     setScore(0);
     setLevel(1);
     setGameStart(true);
+    changeWord();
   };
   // <<<<<
 
@@ -401,4 +402,7 @@ const ModalGameOverBody = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  @media ${theme.breakpoints.xs} {
+    margin: 20px 0 30px;
+  }
 `;
