@@ -77,6 +77,7 @@ const randomWords = [
   { auth: "lova", word: "eses" },
   { auth: "lova", word: "tkt dawva" },
 ];
+
 export default function Home(): JSX.Element {
   // >>>>> states
   const [gameStart, setGameStart] = useState<boolean>(false);
@@ -90,7 +91,6 @@ export default function Home(): JSX.Element {
   const [timeSpeed, setTimeSpeed] = useState<number>(1000);
   const [sound, setSound] = useState<number>(1);
   // <<<<<
-
   // >>>>> input focus
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -122,7 +122,9 @@ export default function Home(): JSX.Element {
     if (gameStart) {
       const value = inputRef?.current?.value;
       if (value == randomWord?.word) {
-        const audio = new Audio(`/audio/score.mp3`);
+        const audio = new Audio(
+          `${process.env.NEXT_PUBLIC_DOMAIN}/audio/score.mp3`
+        );
         audio.volume = sound;
         audio.play();
 
@@ -135,7 +137,9 @@ export default function Home(): JSX.Element {
           setLevel(scoreLevel);
 
           for (let i = 0; i < 5; i++) {
-            const audio1 = new Audio(`/audio/score.mp3`);
+            const audio1 = new Audio(
+              `${process.env.NEXT_PUBLIC_DOMAIN}/audio/score.mp3`
+            );
             audio.volume = sound;
             audio1.play();
           }
@@ -183,7 +187,7 @@ export default function Home(): JSX.Element {
       <TypeWord>
         {gameStart && (
           <audio
-            src={`/audio/brigada-soundtrack.mp3`}
+            src={`${process.env.NEXT_PUBLIC_DOMAIN}/audio/brigada-soundtrack.mp3`}
             autoPlay
             loop
             style={{ height: 0 }}
@@ -192,7 +196,7 @@ export default function Home(): JSX.Element {
         )}
         {isGameOver && (
           <audio
-            src={`/audio/fail.mp3`}
+            src={`${process.env.NEXT_PUBLIC_DOMAIN}/audio/fail.mp3`}
             autoPlay
             style={{ height: 0 }}
             muted={sound ? false : true}
@@ -233,7 +237,10 @@ export default function Home(): JSX.Element {
                 default: { duration: 0 },
               }}
             >
-              <img src={`/icons/sound.svg`} alt="sound" />
+              <img
+                src={`${process.env.NEXT_PUBLIC_DOMAIN}/icons/sound.svg`}
+                alt="sound"
+              />
             </TypeWordSound>
           </TypeWordStatsActions>
         </MainContainer>

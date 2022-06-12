@@ -22,7 +22,7 @@ class MyDocument extends Document {
           <link
             key={1}
             rel="icon"
-            href={`${process.env.GITHUB_PATH}/favicon.svg`}
+            href={`${process.env.NEXT_PUBLIC_DOMAIN}/favicon.svg`}
           />
           <link
             href="https://fonts.googleapis.com/css2?family=Jost:wght@100;300;400;500;600;700&family=Kdam+Thmor+Pro&display=swap"
