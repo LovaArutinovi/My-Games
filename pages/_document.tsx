@@ -19,7 +19,15 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          <link key={1} rel="icon" href="/favicon.svg" />
+          <link
+            key={1}
+            rel="icon"
+            href={`${process.env.GITHUB_PATH}/favicon.svg`}
+          />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Jost:wght@100;300;400;500;600;700&family=Kdam+Thmor+Pro&display=swap"
+            rel="stylesheet"
+          />
           <title>My Games</title>
         </Head>
         <body>
