@@ -58,6 +58,7 @@ const randomWords = [
   { auth: "Salome tsik", word: "Expelliarmus" },
   { auth: "Salome tsik", word: "trash panda" },
   { auth: "Salome tsik", word: "Devil in I" },
+  { auth: "lova", word: "helvetica" },
   { auth: "lova", word: "valaivebt" },
   { auth: "lova", word: "mzadaa" },
   { auth: "lova", word: "shake" },
