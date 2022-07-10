@@ -23,16 +23,44 @@ interface randomWord {
 }
 
 const randomWords = [
+  // {
+  //   difficulty: 1,
+  //   array: [
+  //     {
+  //       auth: "Dizaineri Gagi", word: "Gadasheneba"
+  //     },
+  //   ]
+  // },
   { auth: "Dizaineri Gagi", word: "Gadasheneba" },
   { auth: "Dizaineri Gagi", word: "Inspiracia" },
   { auth: "Dizaineri Gagi", word: "Gadatvirtva" },
   { auth: "Keburia Native", word: "raunda mogwero vermivxvdi" },
+  { auth: "lova", word: "valaivebt" },
+  { auth: "lova", word: "valaivebt" },
   { auth: "Anz2", word: "Flower" },
   { auth: "Anz2", word: "Car" },
   { auth: "Anz2", word: "Rent" },
-  { auth: "lova", word: "bike" },
-  { auth: "lova", word: "exile" },
-  { auth: "lova", word: "astonishing" },
+  { auth: "Quti", word: "Kutaisi" },
+  { auth: "Quti", word: "parlamenti" },
+  { auth: "Quti", word: "memorandumi" },
+  { auth: "Quti", word: "sobranie" },
+  { auth: "Quti", word: "familiaruli" },
+  { auth: "Quti", word: "diskvalifikacia" },
+  { auth: "Lenko", word: "mtsvrtvneli" },
+  { auth: "Shota", word: "gavalaivot" },
+  { auth: "Shota", word: "beqis bralia" },
+  { auth: "Shota", word: "avtorizacia" },
+  { auth: "Shota", word: "dasinqe" },
+  { auth: "Quti", word: "kanonzomiereba" },
+  { auth: "Quti", word: "sasiminde" },
+  { auth: "Quti", word: "gamanadgurebeli" },
+  { auth: "Datoooooooooooo", word: "Realestate" },
+  { auth: "Datoooooooooooo", word: "WIth360img" },
+  { auth: "Datoooooooooooo", word: "yarn dev" },
+  { auth: "Salome tsik", word: "Expelliarmus" },
+  { auth: "Salome tsik", word: "trash panda" },
+  { auth: "Salome tsik", word: "Devil in I" },
+  { auth: "lova", word: "helvetica" },
   { auth: "lova", word: "valaivebt" },
   { auth: "lova", word: "mzadaa" },
   { auth: "lova", word: "shake" },
@@ -363,7 +391,7 @@ export default function Home(): JSX.Element {
           >
             <ModalBody>
               <Text24 color={theme.colors.black}>
-                Tyme is left but you are Yochagi
+                Time is out but you are Yochagi
               </Text24>
               <ModalGameOverBody>
                 <Text18 color={theme.colors.black}>Score: {score}</Text18>
