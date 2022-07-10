@@ -28,7 +28,6 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Jost:wght@100;300;400;500;600;700&family=Kdam+Thmor+Pro&display=swap"
             rel="stylesheet"
           />
-          <title>My Games</title>
         </Head>
         <body>
           <Main />

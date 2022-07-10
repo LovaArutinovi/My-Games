@@ -1,18 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import Button from "../components/atoms/Button";
-import ButtonIcon from "../components/atoms/ButtonIcons";
-import Text18 from "../components/atoms/Text18";
-import Text24 from "../components/atoms/Text24";
-import Text24Animated from "../components/atoms/Text24Animated";
-import MainContainer from "../components/layout/MainContainer";
-import Modal from "../components/templates/Modal";
-import theme from "../styled/theme";
+import Button from "components/atoms/Button";
+import ButtonIcon from "components/atoms/ButtonIcons";
+import Text18 from "components/atoms/Text18";
+import Text24 from "components/atoms/Text24";
+import Text24Animated from "components/atoms/Text24Animated";
+import MainContainer from "components/layout/MainContainer";
+import theme from "styled/theme";
 import { motion } from "framer-motion";
-import Footer from "../components/templates/Footer";
+import Footer from "components/templates/Footer";
+import { UseIsMobile } from "hooks/useIsMobile";
+import Modal from "components/templates/Modal";
+import MobileModal from "components/templates/MobileModal";
 
 interface isActive {
-  active?: boolean;
+  active: string;
 }
 
 interface randomWord {
@@ -88,8 +90,9 @@ export default function Home(): JSX.Element {
   const [level, setLevel] = useState<number>(1);
   const [time, setTime] = useState<number>(10);
   const [addAnimate, setAddAnimate] = useState<number>(0);
-  const [timeSpeed, setTimeSpeed] = useState<number>(1000);
   const [sound, setSound] = useState<number>(1);
+  const timeSpeed = 1000;
+  const isMobile = UseIsMobile(1024);
   // <<<<<
   // >>>>> input focus
   const inputRef = useRef<HTMLInputElement>(null);
@@ -151,6 +154,7 @@ export default function Home(): JSX.Element {
 
   // >>>>> gameOver
   const gameOver = () => {
+    inputRef?.current?.blur();
     setIsGameOver(true);
     setGameStart(false);
   };
@@ -180,8 +184,28 @@ export default function Home(): JSX.Element {
 
   // >>>>> sound off/on
   const soundOffOnn = () => {
-    setSound(sound == 0 ? 1 : 0);
+    setSound(sound === 0 ? 1 : 0);
   };
+  // <<<<<
+
+  // >>>>> start on enter click
+  const handleKeyDown = () => {
+    if (!gameStart) {
+      setGameStart(true);
+      if (isModalStartOpen) {
+        setIsModalStartOpen(false);
+      }
+      if (isGameOver) {
+        setIsGameOver(false);
+        gameRestart();
+      }
+    }
+  };
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      document.onkeydown = handleKeyDown;
+    }
+  });
   // <<<<<
   return (
     <Wrapper>
@@ -231,7 +255,7 @@ export default function Home(): JSX.Element {
 
             <TypeWordSound
               onClick={soundOffOnn}
-              active={sound == 0 ? true : false}
+              active={Boolean(sound).toString()}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               transition={{
@@ -245,8 +269,30 @@ export default function Home(): JSX.Element {
             </TypeWordSound>
           </TypeWordStatsActions>
         </MainContainer>
-        {isModalStartOpen && (
+        {isMobile ? (
+          <MobileModal
+            closeFunction={(bool: boolean) => setIsModalStartOpen(bool)}
+            isOpen={isModalStartOpen}
+            onClose={() => {
+              setIsModalStartOpen(false);
+              setGameStart(true);
+            }}
+          >
+            <ModalBody>
+              <Text24 color={theme.colors.black}>Are you ready?</Text24>
+              <Button
+                onClick={() => {
+                  setIsModalStartOpen(false);
+                  setGameStart(true);
+                }}
+              >
+                Start
+              </Button>
+            </ModalBody>
+          </MobileModal>
+        ) : (
           <Modal
+            isOpen={isModalStartOpen}
             closeFunction={(bool: boolean) => setIsModalStartOpen(bool)}
             onClose={() => {
               setIsModalStartOpen(false);
@@ -266,8 +312,49 @@ export default function Home(): JSX.Element {
             </ModalBody>
           </Modal>
         )}
-        {isGameOver && (
+        {isMobile ? (
+          <MobileModal
+            isOpen={isGameOver}
+            closeFunction={(bool: boolean) => setIsModalStartOpen(bool)}
+            onClose={() => {
+              setIsGameOver(false);
+              gameRestart();
+            }}
+          >
+            <ModalBody>
+              <Text24 color={theme.colors.black}>
+                Tyme is left but you are Yochagi
+              </Text24>
+              <ModalGameOverBody>
+                <Text18 color={theme.colors.black}>Score: {score}</Text18>
+                <Text18 color={theme.colors.black}>Level: {level}</Text18>
+                <Text18 color={theme.colors.black}>
+                  Word author: {randomWord?.auth}
+                </Text18>
+                <Text18 color={theme.colors.black}>
+                  Word : {randomWord?.word}
+                </Text18>
+              </ModalGameOverBody>
+
+              <Text18
+                color={theme.colors.black}
+                textStyles={{ marginBottom: 20 }}
+              >
+                Ar danebde, daarestarte 😎
+              </Text18>
+              <ButtonIcon
+                onClick={() => {
+                  setIsGameOver(false);
+                  gameRestart();
+                }}
+              >
+                Restart
+              </ButtonIcon>
+            </ModalBody>
+          </MobileModal>
+        ) : (
           <Modal
+            isOpen={isGameOver}
             closeFunction={(bool: boolean) => setIsModalStartOpen(bool)}
             onClose={() => {
               setIsGameOver(false);
@@ -385,7 +472,7 @@ const TypeWordSound = styled(motion.div)<isActive>`
   margin-top: 40px;
   cursor: pointer;
   transition: all 0.5s;
-  opacity: ${(props) => (props.active ? ".2" : "1")};
+  opacity: ${(props) => (props.active === "true" ? ".2" : "1")};
 `;
 
 const ModalBody = styled.div`

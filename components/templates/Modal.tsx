@@ -8,6 +8,7 @@ interface ModalProps {
   onClose?: any;
   contentStyle?: any;
   closeFunction: any;
+  isOpen: boolean;
 }
 
 interface BasicProps {
@@ -38,24 +39,28 @@ const Modal: React.FC<ModalProps> = (props): JSX.Element => {
     };
   }, []);
   return (
-    <ModalBox>
-      <ModalCloseBg
-        onClick={(e) => {
-          props.onClose();
-          //  setModalOpen(false);
-          props.closeFunction(false);
-          e.stopPropagation();
-        }}
-      ></ModalCloseBg>
-      <ModalBody
-        variants={container}
-        initial="hidden"
-        animate="show"
-        style={props.contentStyle ?? {}}
-      >
-        {props.children}
-      </ModalBody>
-    </ModalBox>
+    <>
+      {props.isOpen && (
+        <ModalBox>
+          <ModalCloseBg
+            onClick={(e) => {
+              props.onClose();
+              //  setModalOpen(false);
+              props.closeFunction(false);
+              e.stopPropagation();
+            }}
+          ></ModalCloseBg>
+          <ModalBody
+            variants={container}
+            initial="hidden"
+            animate="show"
+            style={props.contentStyle ?? {}}
+          >
+            {props.children}
+          </ModalBody>
+        </ModalBox>
+      )}
+    </>
   );
 };
 
