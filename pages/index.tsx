@@ -12,96 +12,16 @@ import Footer from "components/templates/Footer";
 import { UseIsMobile } from "hooks/useIsMobile";
 import Modal from "components/templates/Modal";
 import MobileModal from "components/templates/MobileModal";
+import { words } from "helpers/words";
 
 interface isActive {
-  active: string;
+  active: boolean;
 }
 
 interface randomWord {
   auth: string;
   word: string;
 }
-
-const randomWords = [
-  // {
-  //   difficulty: 1,
-  //   array: [
-  //     {
-  //       auth: "Dizaineri Gagi", word: "Gadasheneba"
-  //     },
-  //   ]
-  // },
-  { auth: "Dizaineri Gagi", word: "gadasheneba" },
-  { auth: "Dizaineri Gagi", word: "inspiracia" },
-  { auth: "Dizaineri Gagi", word: "gadatvirtva" },
-  { auth: "Qebu", word: "kargi" },
-  { auth: "Qebu", word: "ara" },
-  { auth: "Qebu", word: "iasna" },
-  { auth: "Qebu", word: "daica" },
-  { auth: "Sandro", word: "sandro" },
-  { auth: "Sandro", word: "chinka" },
-  { auth: "Sandro", word: "dzuntsi" },
-  { auth: "Dabruneba Luka", word: "lakhat lokhum" },
-  { auth: "lova", word: "valaivebt" },
-  { auth: "Quti", word: "kutaisi" },
-  { auth: "Quti", word: "parlamenti" },
-  { auth: "Quti", word: "memorandumi" },
-  { auth: "Quti", word: "sobranie" },
-  { auth: "Quti", word: "familiaruli" },
-  { auth: "Quti", word: "diskvalifikacia" },
-  { auth: "Quti", word: "eg dzaan didia" },
-  { auth: "Quti", word: "gardi gardmo" },
-  { auth: "Lenko", word: "mtsvrtvneli" },
-  { auth: "Shota", word: "gavalaivot" },
-  { auth: "Shota", word: "beqis bralia" },
-  { auth: "Shota", word: "avtorizacia" },
-  { auth: "Shota", word: "dasinqe" },
-  { auth: "Quti", word: "kanonzomiereba" },
-  { auth: "Quti", word: "sasiminde" },
-  { auth: "Quti", word: "gamanadgurebeli" },
-  { auth: "Quti", word: "diSkriminacia" },
-   { auth: "Quti", word: "melanqolia" },
-   { auth: "Quti", word: "korelacia" },
-  { auth: "Quti", word: "Spekulacia" },
-   { auth: "Quti", word: "Silueti" },
-  { auth: "Datoooooooooooo", word: "realestate" },
-  { auth: "Datoooooooooooo", word: "with360img" },
-  { auth: "Datoooooooooooo", word: "yarn dev" },
-  { auth: "Salome tsik", word: "expelliarmus" },
-  { auth: "Salome tsik", word: "trash panda" },
-  { auth: "Salome tsik", word: "masteri chamerge" },
-  { auth: "Salome tsik", word: "psychosocial" },
-  { auth: "Salome tsik", word: "advanced" },
-  { auth: "Salome tsik", word: "tsiki" },
-  { auth: "Salome tsik", word: "that's what she said" },
-  { auth: "lova", word: "helvetica" },
-  { auth: "lova", word: "valaivebt" },
-  { auth: "lova", word: "mzadaa" },
-  { auth: "lova", word: "pachkovich" },
-  { auth: "lova", word: "chamerje" },
-  { auth: "lova", word: "taski washala" },
-  { auth: "lova", word: "logo damixate" },
-  { auth: "lova", word: "html magaria" },
-  { auth: "lova", word: "anzerkus" },
-  { auth: "lova", word: "gudvilshi gavidet" },
-  { auth: "lova", word: "shax i mat" },
-  { auth: "lova", word: "botasebi" },
-  { auth: "lova", word: "healthy" },
-  { auth: "lova", word: "build" },
-  { auth: "lova", word: "translive" },
-  { auth: "lova", word: "enami daamate" },
-  { auth: "lova", word: "if if if" },
-  { auth: "lova", word: "love" },
-  { auth: "lova", word: "LOVA" },
-  { auth: "lova", word: "wavage" },
-  { auth: "lova", word: "pica tu lobiani" },
-  { auth: "lova", word: "shaurma" },
-  { auth: "lova", word: "tanjex" },
-  { auth: "lova", word: "tope humanuria" },
-  { auth: "lova", word: "Lemondo" },
-  { auth: "lova", word: "eses" },
-  { auth: "lova", word: "tkt dawva" },
-];
 
 export default function Home(): JSX.Element {
   // >>>>> states
@@ -114,6 +34,7 @@ export default function Home(): JSX.Element {
   const [time, setTime] = useState<number>(10);
   const [addAnimate, setAddAnimate] = useState<number>(0);
   const [sound, setSound] = useState<number>(1);
+  const [randomWords, setRandomWords] = useState(words[0]);
   const timeSpeed = 1000;
   const isMobile = UseIsMobile(1024);
   // <<<<<
@@ -194,7 +115,48 @@ export default function Home(): JSX.Element {
     changeWord();
   };
   // <<<<<
+  // >>>>> change words level
+  useEffect(() => {
+    setRandomWords(level <= 5 && level >= 1 ? words[level - 1] : words[4]);
+    console.log(randomWords);
+  }, [level]);
+  //  <<<<<
+  ///// sort function ///////
+  // const sort = () => {
+  //   const sortedArray = {
+  //     1: [],
+  //     2: [],
+  //     3: [],
+  //     4: [],
+  //     5: [],
+  //   };
 
+  //   words.map((el) => {
+  //     switch (true) {
+  //       case el.word.length <= 5: {
+  //         sortedArray[1].push(el);
+  //         break;
+  //       }
+  //       case el.word.length <= 7: {
+  //         sortedArray[2].push(el);
+  //         break;
+  //       }
+  //       case el.word.length <= 10: {
+  //         sortedArray[3].push(el);
+  //         break;
+  //       }
+  //       case el.word.length <= 13: {
+  //         sortedArray[4].push(el);
+  //         break;
+  //       }
+  //       default: {
+  //         sortedArray[5].push(el);
+  //       }
+  //     }
+  //   });
+  //   console.log(sortedArray);
+  // };
+  // sort();
   // >>>>> Generate word
   const changeWord = () => {
     setRandomWord(randomWords[Math.floor(Math.random() * randomWords.length)]);
@@ -204,23 +166,23 @@ export default function Home(): JSX.Element {
     changeWord();
   }, [score]);
   // <<<<<
-
-  // >>>>> sound off/on
   const soundOffOnn = () => {
     setSound(sound === 0 ? 1 : 0);
   };
   // <<<<<
 
   // >>>>> start on enter click
-  const handleKeyDown = () => {
-    if (!gameStart) {
-      setGameStart(true);
-      if (isModalStartOpen) {
-        setIsModalStartOpen(false);
-      }
-      if (isGameOver) {
-        setIsGameOver(false);
-        gameRestart();
+  const handleKeyDown = (event: KeyboardEvent) => {
+    if (event.code == "Enter") {
+      if (!gameStart) {
+        setGameStart(true);
+        if (isModalStartOpen) {
+          setIsModalStartOpen(false);
+        }
+        if (isGameOver) {
+          setIsGameOver(false);
+          gameRestart();
+        }
       }
     }
   };
@@ -278,7 +240,7 @@ export default function Home(): JSX.Element {
 
             <TypeWordSound
               onClick={soundOffOnn}
-              active={Boolean(sound).toString()}
+              active={!!sound}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               transition={{
@@ -495,7 +457,7 @@ const TypeWordSound = styled(motion.div)<isActive>`
   margin-top: 40px;
   cursor: pointer;
   transition: all 0.5s;
-  opacity: ${(props) => (props.active === "true" ? ".2" : "1")};
+  opacity: ${(props) => (props.active ? "1" : ".2")};
 `;
 
 const ModalBody = styled.div`
